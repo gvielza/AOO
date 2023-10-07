@@ -1,6 +1,7 @@
 from clases.automovil import Automovil
 from clases.automovilVolador import AutomovilVolador
 from clases.vehiculo import Vehiculo
+import sqlite3 as sql
 
 
 
@@ -28,7 +29,7 @@ coche2.frena()
 print(coche2.velocidad)
 
 
-automovilvolador1=AutomovilVolador("red","Toyota",20,False)
+automovilvolador1=AutomovilVolador(2020,"blanco","red","Toyota",20,False)
 print(f'el automovil esta o no volando: {automovilvolador1.esta_volando}')
 print(coche2.conducir())
 print(automovilvolador1.conducir())
@@ -39,7 +40,7 @@ veh1=Vehiculo(2018,"B15")
 print(f"el año del vehiculo es {veh1.get_anno()}")
 print(f"el año del vehiculo es {veh1._anno}")
 print(f"el modelo del vehiculo es {veh1.get_modelo()}")
-print(f"el modelo del vehiculo es {veh1.__modelo}")
+#print(f"el modelo del vehiculo es {veh1.__modelo}")
 #actualizar año
 veh1.set_anno(2020)
 
@@ -47,3 +48,51 @@ print(f"el año del vehiculo es {veh1.get_anno()}")
 print(f"el modelo del vehiculo es {veh1.get_modelo()}")
 veh1.set_modelo("Corolla")
 print(f"el modelo del vehiculo es {veh1.get_modelo()}")
+print("**********Clase14******")
+auto=Automovil(2020,"ES","gris","mazda",20)
+print(auto._anno)
+print(auto.get_modelo())
+autovolador=AutomovilVolador(2023,"A3","blanco","AUDi",50)
+#print(autovolador.__modelo)
+print(autovolador.get_modelo())
+autovolador.set_modelo("A4")
+print(autovolador.get_modelo())
+
+print(auto.datos())
+print(autovolador.datos())
+
+def datos_veh(auto):
+  return auto.datos()
+
+auto_dato=Automovil(2002,"Punto","verde","Fiat",10)
+
+print(datos_veh(auto_dato))
+print("**************BD********")
+conexion=sql.connect("bd/mi_bd.db")
+cursor=conexion.cursor()
+cursor.execute('''CREATE TABLE IF NOT EXISTS vehiculos(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+Anno INTEGER,
+modelo TEXT
+)'''
+)
+conexion.commit()
+cursor.execute('''INSERT INTO vehiculos(anno, modelo)VALUES(?,?)
+''',(veh1.get_anno(),veh1.get_modelo()))
+conexion.commit()
+# Ejecutar una consulta para obtener todos los datos de la tabla vehiculos
+cursor.execute("SELECT * FROM vehiculos")
+
+# Obtener todos los resultados de la consulta
+resultados = cursor.fetchall()
+
+# Imprimir los resultados
+for fila in resultados:
+    print(fila)
+
+# Cerrar la conexión
+conexion.close()
+
+
+
+

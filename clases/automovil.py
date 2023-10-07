@@ -22,3 +22,6 @@ class Automovil(Vehiculo):
   def conducir(self):
     print("Conduciendo el automovil")
     pass
+  def datos(self):
+    return f"Automovil de {self.ruedas} "
+ 

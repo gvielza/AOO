@@ -21,3 +21,6 @@ class Otra:
   print(e1.metodo_publico)
   print(e1.atributo_publico)
   print(e1.atribut_publico)
+print("************")
+import mi_modulo
+print(mi_modulo.sumar(4,6))

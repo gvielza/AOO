@@ -6,4 +6,5 @@ class AutomovilVolador(Automovil):
     self.esta_volando=esta_volando
   def conducir(self):
     return("conduciendo el automovilVolador")
-  
+  def datos(self):
+    return f"Automovil Volador  de {self.ruedas} "
