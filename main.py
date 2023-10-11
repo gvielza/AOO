@@ -2,32 +2,14 @@ from clases.automovil import Automovil
 from clases.automovilVolador import AutomovilVolador
 from clases.vehiculo import Vehiculo
 import sqlite3 as sql
-
-
+from base_datos.conexion import Conexion 
 
 coche1=Automovil(2019,"Corolla","red","Toyota",20)
-
-print(coche1.ruedas)
-print(coche1.aceleracion)
-coche1.aceleracion=30
-print(coche1.aceleracion)
-coche1.acelera()
-print(coche1.velocidad)
-coche1.acelera()
-print(coche1.velocidad)
-coche1.aceleracion=50
-coche1.acelera()
-print(coche1.velocidad)
-coche1.ruedas=5
-print(coche1.ruedas)
-coche1.frena()
-print(coche1.aceleracion)
 
 coche2=Automovil(2020,"ES","gris","mazda",20)
 print(coche2.velocidad)
 coche2.frena()
 print(coche2.velocidad)
-
 
 automovilvolador1=AutomovilVolador(2020,"blanco","red","Toyota",20,False)
 print(f'el automovil esta o no volando: {automovilvolador1.esta_volando}')
@@ -66,32 +48,44 @@ def datos_veh(auto):
 
 auto_dato=Automovil(2002,"Punto","verde","Fiat",10)
 
+
+#comentar control+/
 print(datos_veh(auto_dato))
 print("**************BD********")
-conexion=sql.connect("bd/mi_bd.db")
-cursor=conexion.cursor()
+conexion1=sql.connect("base_datos/mi_bd.db")
+cursor=conexion1.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS vehiculos(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 Anno INTEGER,
 modelo TEXT
 )'''
 )
-conexion.commit()
-cursor.execute('''INSERT INTO vehiculos(anno, modelo)VALUES(?,?)
-''',(veh1.get_anno(),veh1.get_modelo()))
-conexion.commit()
-# Ejecutar una consulta para obtener todos los datos de la tabla vehiculos
-cursor.execute("SELECT * FROM vehiculos")
+conexion1.commit()
+cursor.execute('''SELECT * FROM vehiculos''')
+vehiculos=cursor.fetchall()
+for vehiculo in vehiculos:
+  print(vehiculo)
+cursor.close()
+conexion1.close()
+print("\n"+"***************Desde archivo externo"+"\n")
+bd="mi_bd.db"
+conexion=Conexion(bd)
 
+
+
+conexion.crear_tabla()
+#conexion.agregar_vehiculo(2010,"AR")
 # Obtener todos los resultados de la consulta
-resultados = cursor.fetchall()
+conexion.eliminar(str(3))
+conexion.modificar_vehiculos(2010,"Audi",str(1))
+resultados = conexion.listar_clientes()
 
 # Imprimir los resultados
 for fila in resultados:
     print(fila)
 
 # Cerrar la conexión
-conexion.close()
+conexion.cerrar_bd()
 
 
 
