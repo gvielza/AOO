@@ -7,15 +7,14 @@ from base_datos.conexion import Conexion
 coche1=Automovil(2019,"Corolla","red","Toyota",20)
 
 coche2=Automovil(2020,"ES","gris","mazda",20)
-print(coche2.velocidad)
+
 coche2.frena()
-print(coche2.velocidad)
+
 
 automovilvolador1=AutomovilVolador(2020,"blanco","red","Toyota",20,False)
 print(f'el automovil esta o no volando: {automovilvolador1.esta_volando}')
 print(coche2.conducir())
 print(automovilvolador1.conducir())
-print("\n")
 print("***********Clase #13***********")
 veh1=Vehiculo(2018,"B15")
 
