@@ -14,7 +14,7 @@ class TestTexto(unittest.TestCase):
         self.assertFalse(texto2.tiene_mayusculas_y_minusculas())
 
         texto3 = Texto("HoLA MUNDO")
-        self.assertFalse(texto3.tiene_mayusculas_y_minusculas())
+        self.assertTrue(texto3.tiene_mayusculas_y_minusculas())
 
 if __name__ == '__main__':
     unittest.main()
